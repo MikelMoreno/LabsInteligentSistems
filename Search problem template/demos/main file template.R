@@ -50,7 +50,7 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(3,3)
-res1 = Breadth.First.Search(problem)
+res1 = Breadth.First.Search(problem, count.limit = 2000)
 #res2 = method.YYYY(problem,"<OTHER_PARAMETERS>")
 #all = list(res1, res2)
 #analyze.results(list(res1,res2),problem)

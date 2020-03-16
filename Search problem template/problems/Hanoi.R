@@ -26,35 +26,31 @@ initialize.problem = function(rods, disks){
   return(problem)
 }
 
-problem$actions.possible
-
 # =======================================================================
 # Must return TRUE or FALSE according with if the action can be done or not
 # over the specific state
 is.applicable = function (state,action, problem){
+  discosXVar1 = which(state==action[1])
+  if(length(discosXVar1)!= 0){
+    pDisco1 =discosXVar1[length(discosXVar1)]  
+  }else{
+    pDisco1=0
+  }
   
+  discosXVar2 = which(state==action[2])
+  if(length(discosXVar2)!= 0){
+    pDisco2 =discosXVar2[length(discosXVar2)]  
+  }else{
+    pDisco2=0
+  }
+  print(pDisco2)
   
-    discosXVar1 = which(state==action[1])
-    if(length(discosXVar1)!= 0){
-      pDisco1 =discosXVar1[length(discosXVar1)]  
-    }else{
-      pDisco1=0
-    }
-    
-    discosXVar2 = which(state==action[2])
-    if(length(discosXVar2)!= 0){
-      pDisco2 =discosXVar2[length(discosXVar2)]  
-    }else{
-      pDisco2=0
-    }
-    print(pDisco2)
-    
-    if (pDisco1 > pDisco2){
-      result = TRUE
-    
-    }else{
+  if (pDisco1 > pDisco2){
+    result = TRUE
+  
+  }else{
     result = FALSE
-    }
+  }
   
   
   
@@ -119,9 +115,9 @@ is.final.state = function (state, finalstate){
 # Must print the state in console (in a legible way)
 to.string = function (state){
   # <insert code here to print the state> 
-  
-  for (i in 1:state[1]){
-    print(state[i,])
+  #he editado esto pk nuestro state es un vector
+  for (i in state){
+    print(state[i])
   }
 
   
