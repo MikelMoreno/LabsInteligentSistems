@@ -101,13 +101,16 @@ effect = function (state,action){
 # * In case the final state is stablished by a condition, second argument
 #   could be omited
 
-# esta parte de aqui peta, dice que no encuentra la funcion is final state.
+# ahora hace una comparacion buena usando estos metodos. FUNCIONA
 is.final.state = function (state, finalstate){
-  if(intersect(state, finalstate) == rods){
+  # state <- c(1,1)
+  # finalstate<- c(1,3)
+  if(all(length(state)==length(finalstate)) && all(state==finalstate)){
     result = TRUE
   }else{
     result = FALSE
   }
+  result
   # <insert code here in order to check if a state is final> 
   return(result)
 }
