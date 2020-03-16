@@ -115,9 +115,9 @@ is.final.state = function (state, finalstate){
 # Must print the state in console (in a legible way)
 to.string = function (state){
   # <insert code here to print the state> 
-  #he editado esto pk nuestro state es un vector
-  for (i in state){
-    print(state[i])
+  
+  for (i in state[1]){
+    print(state[i,])
   }
 
   
