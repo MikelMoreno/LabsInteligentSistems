@@ -1,0 +1,2 @@
+setwd("G:/Mi unidad/DOCENCIA/GII Sistemas Inteligentes/01 Materiales/SI_ALUD/Code Templates/Search problem template/problems")
+getwd()
