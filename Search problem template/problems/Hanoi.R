@@ -71,13 +71,13 @@ effect = function (state,action){
   # Decimos que el formato de action es un vector de (VarillaOrigen, VarillaDestino)
   # Sacamos tamaño del vector = numero de discos
   
-  # action <- c(1,2)
-  # state <- c(1,1,3)
+   # action <- c(1,2)
+   # state <- c(1,2)
   i = length(state)
   
-  #recorremos el vector de alante hacia atras
+  # recorremos el vector de alante hacia atras
   while (i != 0) {
-    if(state[i] == action[1]){# coje el disco de más arriba de la varilla origen
+    if(state[i] == action[1]){ # coje el disco de más arriba de la varilla origen
       state[i] = action[2] # mueve el disco a la varilla destino
       break() # no necesitamos mirar mas
     }else{# si el disco [i] no esta en la varilla origen, mira el siguiente  <--
@@ -115,10 +115,10 @@ is.final.state = function (state, finalstate){
 # Must print the state in console (in a legible way)
 to.string = function (state){
   # <insert code here to print the state> 
-  
-  for (i in state[1]){
-    print(state[i,])
-  }
+  print(state)
+  # for (i in state){
+  #   print(state[i])
+  # }
 
   
   # <try to print the state in the most visual way>

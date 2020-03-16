@@ -1,8 +1,8 @@
 # =======================================================================
 # Names: Ander Eguiluz and Mikel Moreno
-# Group Number: 
-# Assignment:Assigment 2
-# Date:15/03/2020
+# Group Number: Group A
+# Assignment:Assigment 2 - Hanoi Puzzle
+# Date:16/03/2020
 # Time spent in the assignment: 6 hours
 # Proportion of effort done by members of the group: 50/50 
 # Doubts and difficulties that arose during the realization: we are not very familiar with R sintax.
@@ -36,6 +36,13 @@ library(gtools)
 # ADDITIONAL FUNCTIONS (add any used method/problem here)
 
 source("../methods/Breadth First Search.R")
+source("../methods/Depth First Search.R")
+source("../methods/Iterative Deepening Search.R")
+source("../methods/Depth Limited Search.R")
+source("../methods/Greedy Best First Search.R")
+source("../methods/Uniform Cost Search.R")
+
+
 source("../problems/Hanoi.R")
 
 # And here, there are additional (needed) functions
@@ -50,8 +57,15 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(3,3)
-res1 = Breadth.First.Search(problem, count.limit = 2000)
-#res2 = method.YYYY(problem,"<OTHER_PARAMETERS>")
-#all = list(res1, res2)
-#analyze.results(list(res1,res2),problem)
+
+res1 = Breadth.First.Search(problem, count.limit = 2000) # yes
+res2 = Breadth.First.Search(problem,graph.search = T, count.limit = 2000) # yes
+
+res3 = Depth.First.Search(problem, count.limit = 2000) # no
+res4 = Depth.First.Search(problem,graph.search = T, count.limit = 2000) # yes
+
+res5 = Iterative.Deepening.Search(problem, count.limit = 2000) # yes
+
+all = list(res1,res2,res3,res4,res5)
+analyze.results(list(res1,res2,res3,res4,res5),problem)
 
