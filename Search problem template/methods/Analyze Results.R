@@ -13,10 +13,10 @@ analyze.results = function(all,problem){
       state.current = problem$state.initial
       print("Initial State: ")
       to.string(state.current)
-      for (a in 1:length(actions)){
-        action = actions[a]
+      for (a in 1:length(actions[,1])){
+        action = actions[a,] #THIS COMMA HAS BEEN F**** US A BIT :)
         state.current = effect(state.current,action)  
-        print(paste0("After applying action: ",action),quote = F)
+        print(paste0("After applying action: ",action[1]," -> ", action[2]),quote = F)
         to.string(state.current)
       }
     }else{

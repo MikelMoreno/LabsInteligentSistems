@@ -42,12 +42,12 @@ source("../methods/Depth Limited Search.R")
 source("../methods/Greedy Best First Search.R")
 source("../methods/Uniform Cost Search.R")
 
-
+# OUR PROBLEM
 source("../problems/Hanoi.R")
 
 # And here, there are additional (needed) functions
 source("../methods/Expand Node.R")
-source("../methods/Analyze Results.R")
+source("../methods/Analyze Results.R") #We needed to change one small issue on this function
 source("../methods/Plot Results.R")
 # =======================================================================
 # Check the proper operation of implemented function here!
@@ -55,17 +55,36 @@ source("../methods/Plot Results.R")
 
 
 # =======================================================================
-# Solving of the problem (you have to adapt it)
-problem   = initialize.problem(3,3)
+# Solving of the problem 
 
-res1 = Breadth.First.Search(problem, count.limit = 2000) # yes
-res2 = Breadth.First.Search(problem,graph.search = T, count.limit = 2000) # yes
+problem_easy   = initialize.problem(3,3) #3 rods 3 disks
+problem_medium   = initialize.problem(3,6) #3 rods 6 disks
+problem_hard    = initialize.problem(6,6) #6 rods 6 disks
 
-res3 = Depth.First.Search(problem, count.limit = 2000) # no
-res4 = Depth.First.Search(problem,graph.search = T, count.limit = 2000) # yes
+#EASY
+res1 = Breadth.First.Search(problem_easy, count.limit = 2000) # yes
+res2 = Breadth.First.Search(problem_easy,graph.search = T, count.limit = 2000) # yes
+res3 = Depth.First.Search(problem_easy, count.limit = 2000) # no
+res4 = Depth.First.Search(problem_easy,graph.search = T, count.limit = 2000) # yes
+res5 = Iterative.Deepening.Search(problem_easy, count.limit = 2000) # yes
 
-res5 = Iterative.Deepening.Search(problem, count.limit = 2000) # yes
+#MEDIUM
+mres1 = Breadth.First.Search(problem_medium, count.limit = 2000) 
+mres2 = Breadth.First.Search(problem_medium,graph.search = T, count.limit = 2000) 
+mres3 = Depth.First.Search(problem_medium, count.limit = 2000) 
+mres4 = Depth.First.Search(problem_medium,graph.search = T, count.limit = 2000) 
+mres5 = Iterative.Deepening.Search(problem_medium, count.limit = 2000) 
 
-all = list(res1,res2,res3,res4,res5)
-analyze.results(list(res1,res2,res3,res4,res5),problem)
+#HARD
+hres1 = Breadth.First.Search(problem_hard, count.limit = 2000) 
+hres2 = Breadth.First.Search(problem_hard,graph.search = T, count.limit = 2000)
+hres3 = Depth.First.Search(problem_hard, count.limit = 2000)
+hres4 = Depth.First.Search(problem_hard,graph.search = T, count.limit = 2000) 
+hres5 = Iterative.Deepening.Search(problem_hard, count.limit = 2000) 
+
+#Analyzing the results
+analyze.results(list(res1,res2,res3,res4,res5),problem_easy)
+analyze.results(list(mres1,mres2,mres3,mres4,mres5),problem_medium)
+analyze.results(list(hres1,hres2,hres3,hres4,hres5),problem_hard)
+
 

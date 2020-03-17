@@ -14,22 +14,27 @@
 
 # This function must return a list with the information needed to 
 # solve the problem.
-# (Depending on the problem, it should receive or not parameters)
-initialize.problem = function(rods, disks){
+
+initialize.problem = function(rods, disks){ # we receive (#rods, #disks)
   problem = list()
-  problem$state.initial = seq(1,1, length.out =disks)
-  problem$state.final   = seq(rods, rods, length.out =disks)
-  #problem$actions.possible = (data.frame(orig = 1:rods, dest = 1:rods))
-  problem$actions.possible = permutations(rods, 2, v=c( 1:rods) , repeats.allowed=FALSE)
+  problem$state.initial = seq(1,1, length.out =disks) #initial state = [1, 1, 1, ... 1[#disks]]
+  problem$state.final   = seq(rods, rods, length.out =disks) # final state = [#rods, #rods, ... #rods[#disks]]
+  problem$actions.possible = permutations(rods, 2, v=c( 1:rods) , repeats.allowed=FALSE) #actions are the possible permutations between rods 
+  
   problem$name = paste0("Hanoi tower of ", rods, " rods and ", disks, " disks." )
-  # problem$<aditional info> = <Insert code here>
   return(problem)
 }
 
 # =======================================================================
 # Must return TRUE or FALSE according with if the action can be done or not
 # over the specific state
-is.applicable = function (state,action, problem){
+
+# Method :
+#First we look if the OrigRod has any disk to move
+#Then we look if the DestRod has any disk smaller than the one on the OrigRod
+#if neither of this conditions are fulfilled, we return TRUE
+
+is.applicable = function (state,action, problem){ 
   discosXVar1 = which(state==action[1])
   if(length(discosXVar1)!= 0){
     pDisco1 =discosXVar1[length(discosXVar1)]  
@@ -43,7 +48,6 @@ is.applicable = function (state,action, problem){
   }else{
     pDisco2=0
   }
-  print(pDisco2)
   
   if (pDisco1 > pDisco2){
     result = TRUE
@@ -68,26 +72,24 @@ is.applicable = function (state,action, problem){
 effect = function (state,action){ 
   # Funciona, tal vez hay que hacer otro test mas.
   
-  # Decimos que el formato de action es un vector de (VarillaOrigen, VarillaDestino)
-  # Sacamos tamaño del vector = numero de discos
+  # Our action is a vector of (OrigRod, DestRod)
+  # vectorLength = numDisks
   
    # action <- c(1,2)
    # state <- c(1,2)
+  
   i = length(state)
   
-  # recorremos el vector de alante hacia atras
+  # we iterate over the vector from top to bottom
   while (i != 0) {
-    if(state[i] == action[1]){ # coje el disco de más arriba de la varilla origen
-      state[i] = action[2] # mueve el disco a la varilla destino
-      break() # no necesitamos mirar mas
-    }else{# si el disco [i] no esta en la varilla origen, mira el siguiente  <--
+    if(state[i] == action[1]){ # picks up the most small disk from OrigRod
+      state[i] = action[2] # moves it to DestRod
+      break() 
+    }else{# if disk[i]] is not in OrigRod, look for next one  <--
       i = i-1
     }
   }
-
-  result = state
-  # <insert code here in order to modify the resulting state> 
-  # print(result)
+  result = state 
   return(result)
 }
 
@@ -106,22 +108,14 @@ is.final.state = function (state, finalstate){
   }else{
     result = FALSE
   }
-  result
-  # <insert code here in order to check if a state is final> 
   return(result)
 }
 
 # =======================================================================
 # Must print the state in console (in a legible way)
 to.string = function (state){
-  # <insert code here to print the state> 
   print(state)
-  # for (i in state){
-  #   print(state[i])
-  # }
-
   
-  # <try to print the state in the most visual way>
 }
 
 # =======================================================================
