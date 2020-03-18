@@ -1,24 +1,11 @@
-# =======================================================================
-# 1. Be sure to include, with this template, any necessary files
-#    for execution, including datasets (problem.R, methodXXX.R, ...)
-#    (submission of the entire template folder is recommended)
-# 2. If you use a function of a certain package, do not forget to include the
-#    corresponding call to the "library ()" function
-# 3. Do not forget to comment on the code, especially those non-trivial commands
-#    (remember that part of the rating depends on the cleaning of the code)
-# 4. It is strongly recommended to test any implemented function in order to 
-#    check for its proper operation
-# =======================================================================
-# (This is a general code, you must adapt it)
-# =======================================================================
 
 # This function must return a list with the information needed to 
 # solve the problem.
 
 initialize.problem = function(rods, disks){ # we receive (#rods, #disks)
   problem = list()
-  problem$state.initial = seq(1,1, length.out =disks) #initial state = [1, 1, 1, ... 1[#disks]]
-  problem$state.final   = seq(rods, rods, length.out =disks) # final state = [#rods, #rods, ... #rods[#disks]]
+  problem$state.initial = seq(1,1, length.out =disks) #initial state = vector of [1, 1, 1, ... 1[#disks]]
+  problem$state.final   = seq(rods, rods, length.out =disks) # final state = vector of [#rods, #rods, ... #rods[#disks]]
   problem$actions.possible = permutations(rods, 2, v=c( 1:rods) , repeats.allowed=FALSE) #actions are the possible permutations between rods 
   
   problem$name = paste0("Hanoi tower of ", rods, " rods and ", disks, " disks." )
@@ -56,15 +43,10 @@ is.applicable = function (state,action, problem){
     result = FALSE
   }
   
-  
-  
   # <insert code here in order to calculate result value>
   return(result)
 }
 
-# problema = initialize.problem(3,3)
-# is.applicable(state = problema$state.initial, action = c(2,1), problem = problema)
-# effect(state = problema$state.initial, action = c(1,2))
 # =======================================================================
 # Must return the state resulting on applying the action over the state
 
@@ -99,14 +81,15 @@ effect = function (state,action){
 # * In case the final state is stablished by a condition, second argument
 #   could be omited
 
-# ahora hace una comparacion buena usando estos metodos. FUNCIONA
+
 is.final.state = function (state, finalstate){
-  # state <- c(1,1)
+  # Some tests before defining the function: 
+  # state <- c(1,1) 
   # finalstate<- c(1,3)
-  if(all(length(state)==length(finalstate)) && all(state==finalstate)){
-    result = TRUE
+  if(all(length(state)==length(finalstate)) && all(state==finalstate)){ #Compares the vector of the state with the vector of the solution
+    result = TRUE # if state == finalstate TRUE
   }else{
-    result = FALSE
+    result = FALSE # if state != finalstate FALSE
   }
   return(result)
 }
@@ -131,4 +114,10 @@ get.cost = function (action,state){
 get.evaluation = function(state,problem){
 	return(1)
 }
+
+# tests: Uncomment if want to test functions
+  # problema = initialize.problem(3,3)
+  # is.applicable(state = problema$state.initial, action = c(2,1), problem = problema)
+  # effect(state = problema$state.initial, action = c(1,2))
+  
 

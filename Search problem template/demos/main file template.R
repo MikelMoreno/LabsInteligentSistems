@@ -57,16 +57,16 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem 
 
-problem_easy   = initialize.problem(3,3) #3 rods 3 disks
-problem_medium   = initialize.problem(3,6) #3 rods 6 disks
-problem_hard    = initialize.problem(6,6) #6 rods 6 disks
+problem_easy   = initialize.problem(6,3) #6 rods 3 disks
+problem_medium   = initialize.problem(3,3) #3 rods 3 disks
+problem_hard    = initialize.problem(3,6) #3 rods 6 disks
 
 #EASY
-res1 = Breadth.First.Search(problem_easy, count.limit = 2000) # yes
-res2 = Breadth.First.Search(problem_easy,graph.search = T, count.limit = 2000) # yes
-res3 = Depth.First.Search(problem_easy, count.limit = 2000) # no
-res4 = Depth.First.Search(problem_easy,graph.search = T, count.limit = 2000) # yes
-res5 = Iterative.Deepening.Search(problem_easy, count.limit = 2000) # yes
+res1 = Breadth.First.Search(problem_easy, count.limit = 2000) 
+res2 = Breadth.First.Search(problem_easy,graph.search = T, count.limit = 2000)
+res3 = Depth.First.Search(problem_easy, count.limit = 2000) 
+res4 = Depth.First.Search(problem_easy,graph.search = T, count.limit = 2000) 
+res5 = Iterative.Deepening.Search(problem_easy, count.limit = 2000) 
 
 #MEDIUM
 mres1 = Breadth.First.Search(problem_medium, count.limit = 2000) 
