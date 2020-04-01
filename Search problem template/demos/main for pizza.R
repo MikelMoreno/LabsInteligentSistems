@@ -1,7 +1,7 @@
 # =======================================================================
-# Names:
-# Group Number: 
-# Assignment:
+# Names: Ander Eguiluz and Mikel Moreno
+# Group Number: ?
+# Assignment: Assignment 3 - Pizza Problem
 # Date:
 # Time spent in the assignment:
 # Proportion of effort done by members of the group: 
