@@ -18,8 +18,11 @@
 
 # tests para ver que pasa, si he puesto como 2000 comentarios lo siento de antemano. Mikel <3
 # si lo ejecutas pinta cosas pero no encuentra una respuesta, pero no se si es por el problema o por el metodo.
-data.frame(include = 1:4, cost = 1)
+# data.frame(include = 1:4, cost = 1)
 pizzas = c(2,5,6,8)
+state = c(FALSE, FALSE, TRUE, FALSE)
+current = sum(pizzas*state)
+target = 17
 
 initialize.problem = function(target = 17, 
                               pizzas = c(2, 5, 6, 8)){
@@ -58,13 +61,24 @@ effect = function (state,action){
 is.final.state = function (state, finalstate=NULL){ # esto huele a culo pero no se como se puede definir el state
   # si  "current=target" --> se termina
   # si "current < target" pero no puede añadir ninguna pizza mas sin pasarte --> se termina
+  # tests
+  state = c(TRUE,TRUE,TRUE,FALSE)
   current = sum(problem$pizzas*state)
-  if (current = problem$target){
+  
+  if (current == problem$target){
     return(TRUE)
-  }else if(current< problem$target){
+    
+  }else if(current < problem$target){
     #compruebas con cada pizza restante desde 1 hasta "target" (pk obviamente no vas a comprobar la pizza 90 para un target de 8)
+    i = which.min(state) #nos devuelve la posicion del primer false (nos indica donde vamos)
+    if (i == (length(state)-1)){ #ponemos un -1 para que no se atasque en el ejemplo
+      print("true")
+      return(TRUE)
+    }else{
+      print("false")
+      return(FALSE)
+    }
   }
-  return(FALSE)
 }
 
 # =======================================================================
