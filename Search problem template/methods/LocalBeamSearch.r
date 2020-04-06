@@ -1,21 +1,31 @@
-Hill.Climber = function(problem,
-                        count.limit=100, 
-                        count.print = 100, 
-                        k,
-                        trace = FALSE){
+Local.Beam.Search = function(problem,
+                             count.limit=100, 
+                             count.print = 100, 
+                             k,
+                             trace = FALSE){
   
-  name.method = "Hill Climber"
+  name.method = "Local Beam Search"
   state.initial    = problem$state.initial
   state.final      = problem$state.final
   actions.possible = problem$actions.possible
+  frontier = list()  
+  successors = list()
+  for (i in 1:k){    
+    node = list(parent=c(),
+                state= runif(length(problem$pizzas))>0.5,
+                actions=c(),
+                depth=0,
+                cost=0,
+                evaluation=get.evaluation(state.initial,problem))
+    
+   #frontier[[i]]= node # k random nodes in the frontier
+    frontier = c(list(node), frontier) #we have our list of all expanded nodes
+    
+  }
   
-  node = list(parent=c(),
-              state=state.initial,
-              actions=c(),
-              depth=0,
-              cost=0,
-              evaluation=get.evaluation(state.initial,problem))
-  frontier = list(node)
+  frontier = frontier[order(sapply(frontier, function (x) x$evaluation))] #we order the frontier
+  
+  bestNode = frontier[[1]]
   
   count = 1
   end.reason = 0
@@ -25,39 +35,39 @@ Hill.Climber = function(problem,
                       nodes.added.frontier=numeric())
   
   
-  while (count<=count.limit){ # o length(frontera)==0 //lo quitamos porq no añade ahora valor
+  # while (count<=count.limit){ # o length(frontera)==0 //lo quitamos porq no añade ahora valor
+  while (count<= count.limit){                                   
     
-    firstnode = frontier[[1]]
-    frontier[[1]] = NULL
-    
-    newnodes = expand.node(firstnode, actions.possible)
-    newnodes = newnodes[order(sapply(newnodes,function (x) x$evaluation))] #ordenar los nuevos nodos por función de evaluación
-
-    if (length(newnodes)){
+    for( i in 1:k){ # Take out nodes from frontier 
+      firstnode = frontier[[1]]
+      frontier[[1]] = NULL
       
-      #para el local beam search
-      k #numero de mejores nodos a explorar 
+      print(i)
       
-      while(i<=k){
-        newbetternodes = newnodes[[i]] #lista de nuevos mejores nodos      
-        for(newnode in newbetternodes){
-          if (firstnode$evaluation > newnode$evaluation){
-            frontier = c(list(newnode),frontier)
-          } else{ # HA ENCONTRADO EL NODO PICO/VALLE
-            soluciones = list()
-            end.reason = "LocalSollution" # or "worse situation"            
-            break
-	        }        
-        }
-        #newnode = newbetternodes[[1]]
-        i++
+      newnodes = expand.node(firstnode, actions.possible) #expand those nodes
+      for(a in 1:length(newnodes)){ # insert node by node in a list of successors
+        node = newnodes[a]
+        successors = c(list(node), successors) #we have our list of all expanded nodes
       }
     }
+    successors = successors[order(sapply(successors,function (x) x$evaluation))] #we order the list of successors 
+    localBest = successors[[1]] #we have our localBest here
+    
+    best = ifelse(best$evaluation > localBest$evaluation, localBest, best)                                           
+    
+    for(e in k:length(frontier)){
+      frontier[[k+1]] = NULL # We keep the best successors nodes in the frontier
+    }                                     
+    report = rbind(report,
+                   data.frame(iteration = count,
+                              nodes.frontier = length(frontier),
+                              depth.of.expanded = firstnode$depth,
+                              nodes.added.frontier = 1))
     
     count = count+1
   }
   
-# A PARTIR DE AQUÍ YA MANDA LOS RESULTADOS  
+  # A PARTIR DE AQUÍ YA MANDA LOS RESULTADOS  
   result = list()
   result$report = report
   result$name = name.method

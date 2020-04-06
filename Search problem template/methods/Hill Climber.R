@@ -22,8 +22,7 @@ Hill.Climber = function(problem,
                       nodes.frontier=numeric(),
                       depth.of.expanded=numeric(),
                       nodes.added.frontier=numeric())
-  
-  
+
   while (count<=count.limit){
     
     if (count%%count.print==0){
