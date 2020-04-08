@@ -1,121 +1,83 @@
-# APPROACH --> REPETIR algortimo principal numberofrepetitions veces (guardar soluciones) y analizar esas soluciones para quedarse con la mejor
-
+source("../methods/Hill Climber.R")
 
 Random.Hill.Climber = function(problem,
-                        numberofrepetitions,
-                        count.limit=100, 
-                        count.print = 100, 
-                        trace = FALSE){
+                               numberofrepetitions,
+                               count.limit=100, 
+                               count.print = 100, 
+                               trace = FALSE){
   
   name.method = "Random.Hill Climber"
-  state.initial    = problem$state.initial 
+  state.initial    = problem$state.initial
   state.final      = problem$state.final
   actions.possible = problem$actions.possible
   
-  while( i < numberofrepetitions ) # hacer bucle de repeticiones
-  
   node = list(parent=c(),
-              state=state.initial, #random state.initial
+              state=state.initial,
               actions=c(),
               depth=0,
               cost=0,
               evaluation=get.evaluation(state.initial,problem))
-  frontier = list(node)
   
-  count = 1
-  end.reason = 0
+  frontier=list(node)
+  end.reason=0
+  BEST = node
+  hillNode = BEST
+  BEST$evaluation = 100000000 # numero elevado 
+  
+  # NO CONSEGUIMOS QUE COMPARE LA EVALUACIÓN DE HILLNODE (error de atomic vector)
+  # NECESARIO CONSEGUIR EVALUACIÓN DE SOLUCION DE HILL.CLIMBER PARA COMPARAR CON BEST
+  # UNA VEZ HECHO ESO, QUEDARSE CON ESA SOLUCION
+  
+  print("EVAL de BEST: ")
+  print(BEST$evaluation)
+  print("EVAL de get.eval(hill...: ")
+  print(get.evaluation(hillNode, problem))
+  
+  solGeneral = list()
+  
   report = data.frame(iteration=numeric(),
                       nodes.frontier=numeric(),
                       depth.of.expanded=numeric(),
                       nodes.added.frontier=numeric())
   
-  
-  while (count<=count.limit){
-    
-    if (count%%count.print==0){
-      print(paste0("Count: ",count,", Nodes in the frontier: ",length(frontier)), quote = F)
-    }
-    
-    if (length(frontier)==0){
-      end.reason = "Frontier"
-      break
-    }
-    
-    firstnode = frontier[[1]]
-    frontier[[1]] = NULL
-    if (trace){
-      print(" ",quote = F)
-      print("------------------------------", quote = F)
-      print("State extracted from frontier:", quote = F)
-      to.string(firstnode$state)
-      print(paste0("(depth=",firstnode$depth,", cost=",firstnode$depth,", eval=",firstnode$evaluation,")"),quote = F)
-    }
-    
-    newnodes = expand.node(firstnode, actions.possible)
-    newnodes = newnodes[order(sapply(newnodes,function (x) x$evaluation))]
-
-    if (length(newnodes)){
-      newnode = newnodes[[1]]
-      if (firstnode$evaluation > newnode$evaluation){
-        frontier = c(list(newnode),frontier)
-        if (trace){
-          print(paste0("State added to frontier: - (depth=",newnode$depth,", cost=",newnode$depth,", eval=",newnode$evaluation,")"),quote = F)
-          to.string(newnode$state)
-        }
-      } else{
-        #GUARDAR SOLUCION EN UNA LISTA QUE LUEGO SE COMPARA
-        listaSoluciones.add(frontier) #revisar
-        end.reason = "Sollution"
-        break     
-      }
-    }
-    
-    if(trace){
-      print(paste0("Total states in the frontier: ", length(frontier)),quote = F)
-    }
-    
-    report = rbind(report,
-                   data.frame(iteration = count,
-                              nodes.frontier = length(frontier),
-                              depth.of.expanded = firstnode$depth,
-                              nodes.added.frontier = 1))
-    
-    count = count+1
+  for( i in 1:numberofrepetitions ){
+    problem$state.initial = runif(length(problem$pizzas))>0.5
+    solution = Hill.Climber(problem, trace = T, count.limit, count.print)
+    hillNode = solution$state.final
+    if (is.null(hillNode)) end.reason = " "
+    if(!is.null(hillNode)){
+      if (get.evaluation(hillNode,problem)< BEST$evaluation ){  #hillNode$evaluation es el que peta (hillNode$evaluation )
+        BEST$evaluation = get.evaluation(hillNode, problem)
+        solGeneral = solution
+      } 
+      print("EVAL del mejor nodo hasta el momento: ")
+      print(BEST$evaluation)
+    } 
   }
-                                     
-                                     
-### ANÃLISIS SOLUCIONES Y QUEDARSE CON LA MEJOR 
-  
   
   result = list()
-  result$report = report
   result$name = name.method
   
   # Show the obtained (or not) final solution
   if (end.reason == "Sollution"){
-    print("Best solution found!!", quote = F)
-    to.string(firstnode$state)
+    print("Best solution found! :)", quote = F)
+    to.string(BEST$state)
     print("Actions: ", quote = F)
-    print(firstnode$actions, quote = F)
-    result$state.final = firstnode
+    print(BEST$actions, quote = F)
+    result$state.final = BEST$state.final
   } else{
-    if (end.reason == "Frontier"){
-      print("Best solution found!!", quote = F)
-      to.string(firstnode$state)
-      print("Actions: ", quote = F)
-      print(firstnode$actions, quote = F)
-      result$state.final = firstnode
-    } else{
-      print("Best solution found!!", quote = F)
-      to.string(firstnode$state)
-      print("Actions: ", quote = F)
-      print(firstnode$actions, quote = F)
-      result$state.final = firstnode
-    }
-    result$state.final = NA
+    print("Best solution found! :D", quote = F)
+    to.string(BEST$state)
+    print("Actions: ", quote = F)
+    print(BEST$actions, quote = F)
+    result$state.final = BEST$state.final  
   }
   
-  plot.results(report,name.method,problem)
+  plot.results(report, name.method,problem)
   
   return(result)
 }
+
+
+
+

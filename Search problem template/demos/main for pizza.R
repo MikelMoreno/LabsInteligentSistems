@@ -53,9 +53,9 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
-res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
-res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
-res2 = Greedy.Best.First.Search(problem, trace = T)
+#res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
+#res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
+#res2 = Greedy.Best.First.Search(problem, trace = T)
 res3 = Hill.Climber(problem, trace = T, count.limit = 1000, count.print = 1)
 analyze.results(list(res1,res2, res3),problem)
 
