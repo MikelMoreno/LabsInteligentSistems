@@ -32,6 +32,6 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
-res1 = Random.Hill.Climber(problem, 5, trace = T, count.limit = 1000, count.print = 1)
+res1 = Random.Hill.Climber(problem, 5, trace = T, count.limit = 1000, count.print = 1) # el target es 100 pero las pizzas llegan a 111 WTF??
 res2 = Local.Beam.Search(problem, trace = T, count.limit = 1000, count.print = 1, k=3)
 

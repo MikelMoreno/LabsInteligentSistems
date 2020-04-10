@@ -1,4 +1,5 @@
-source("../methods/Hill Climber.R")
+source("../methods/Hill Climber.R") # para que importamos el hill climber.R??
+                                    # la funcion de evaluacion pertenece a pizza problem.R
 
 Random.Hill.Climber = function(problem,
                                numberofrepetitions,
@@ -29,10 +30,9 @@ Random.Hill.Climber = function(problem,
   # UNA VEZ HECHO ESO, QUEDARSE CON ESA SOLUCION
   
   print("EVAL de BEST: ")
-  print(BEST$evaluation)
+  print(BEST$evaluation) # nos esta devolviendo 1e+08 --> 10 elevado a 8
   print("EVAL de get.eval(hill...: ")
-  print(get.evaluation(hillNode, problem))
-  
+  print(get.evaluation(hillNode$state, problem)) # no habiamos metido el $state !!!!
   solGeneral = list()
   
   report = data.frame(iteration=numeric(),
@@ -46,8 +46,8 @@ Random.Hill.Climber = function(problem,
     hillNode = solution$state.final
     if (is.null(hillNode)) end.reason = " "
     if(!is.null(hillNode)){
-      if (get.evaluation(hillNode,problem)< BEST$evaluation ){  #hillNode$evaluation es el que peta (hillNode$evaluation )
-        BEST$evaluation = get.evaluation(hillNode, problem)
+      if (get.evaluation(hillNode$state,problem)< BEST$evaluation ){  #hillNode$evaluation es el que peta (hillNode$evaluation )
+        BEST$evaluation = get.evaluation(hillNode$state, problem) # tenemos que meter el $state, sino la funcion no tira.
         solGeneral = solution
       } 
       print("EVAL del mejor nodo hasta el momento: ")
@@ -59,18 +59,19 @@ Random.Hill.Climber = function(problem,
   result$name = name.method
   
   # Show the obtained (or not) final solution
+  # no esta entrando aqui, entra al Hill Cliember normal
   if (end.reason == "Sollution"){
     print("Best solution found! :)", quote = F)
     to.string(BEST$state)
     print("Actions: ", quote = F)
-    print(BEST$actions, quote = F)
-    result$state.final = BEST$state.final
+    print(BEST$actions, quote = F) # sale null
+    result$state.final = BEST$state
   } else{
     print("Best solution found! :D", quote = F)
     to.string(BEST$state)
     print("Actions: ", quote = F)
     print(BEST$actions, quote = F)
-    result$state.final = BEST$state.final  
+    result$state.final = BEST$state # best no tiene STATE.FINAL  
   }
   
   plot.results(report, name.method,problem)

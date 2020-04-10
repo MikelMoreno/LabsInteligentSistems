@@ -40,6 +40,7 @@ source("../methods/Breadth First Search.R")
 source("../methods/Greedy Best First Search.R")
 source("../methods/Hill Climber.R")
 source("../methods/LocalBeamSearch.R")
+source("../methods/Random Hill Climber.R") # no lo habiamos añadido
 
 # And here, there are additional (needed) functions
 source("../methods/Expand Node.R")
@@ -54,18 +55,17 @@ source("../methods/Plot Results.R")
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
 #res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
-#res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
+res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
 #res2 = Greedy.Best.First.Search(problem, trace = T)
-res3 = Hill.Climber(problem, trace = T, count.limit = 1000, count.print = 1)
-analyze.results(list(res1,res2, res3),problem)
+res3 = Random.Hill.Climber(problem, trace = T, count.limit = 1000, count.print = 1) # no habiamos puesto RANDOM!
+analyze.results(list(res4, res3),problem)
 
 # Similar for complete state
 source("../problems/pizza problem - complete.R")
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
 res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
-
 res1 = Breadth.First.Search(problem, count.limit = 100, graph.search = T, trace = F)
-res2 = Greedy.Best.First.Search(problem, trace = T)
+#res2 = Greedy.Best.First.Search(problem, trace = T)
 res3 = Hill.Climber(problem, trace = T, count.limit = 10)
-analyze.results(list(res1,res2, res3),problem)
-analyze.results(list(res3), problem)
+analyze.results(list(res4, res3),problem)
+#analyze.results(list(res3), problem)
