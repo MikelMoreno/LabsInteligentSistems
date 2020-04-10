@@ -1,5 +1,4 @@
-source("../methods/Hill Climber.R") # para que importamos el hill climber.R??
-                                    # la funcion de evaluacion pertenece a pizza problem.R
+source("../methods/Hill Climber.R")
 
 Random.Hill.Climber = function(problem,
                                numberofrepetitions,
@@ -23,8 +22,7 @@ Random.Hill.Climber = function(problem,
   end.reason=0
   BEST = node
   hillNode = BEST
-  BEST$evaluation = 100000000 # numero elevado 
-  
+  BEST$evaluation = 100000000 # numero elevado
   # NO CONSEGUIMOS QUE COMPARE LA EVALUACIÓN DE HILLNODE (error de atomic vector)
   # NECESARIO CONSEGUIR EVALUACIÓN DE SOLUCION DE HILL.CLIMBER PARA COMPARAR CON BEST
   # UNA VEZ HECHO ESO, QUEDARSE CON ESA SOLUCION
@@ -41,14 +39,22 @@ Random.Hill.Climber = function(problem,
                       nodes.added.frontier=numeric())
   
   for( i in 1:numberofrepetitions ){
-    problem$state.initial = runif(length(problem$pizzas))>0.5
-    solution = Hill.Climber(problem, trace = T, count.limit, count.print)
-    hillNode = solution$state.final
+    print("vuelta:")
+    print(i)
+    problem$state.initial = get.random.state(problem)
+    solution = Hill.Climber(problem,count.limit = count.limit, count.print = count.print, trace = TRUE)
+    print("ha pasado hill climber")
+    print(solution)
+    hillNode = solution$state.final # no es nada
+    print(hillNode)
     if (is.null(hillNode)) end.reason = " "
     if(!is.null(hillNode)){
       if (get.evaluation(hillNode$state,problem)< BEST$evaluation ){  #hillNode$evaluation es el que peta (hillNode$evaluation )
-        BEST$evaluation = get.evaluation(hillNode$state, problem) # tenemos que meter el $state, sino la funcion no tira.
-        solGeneral = solution
+        #BEST$evaluation = get.evaluation(hillNode$state, problem) # tenemos que meter el $state, sino la funcion no tira.
+        #solGeneral = solution
+        print("ha entrado en el IF")
+        BEST = hillNode
+        end.reason = "Sollution"
       } 
       print("EVAL del mejor nodo hasta el momento: ")
       print(BEST$evaluation)

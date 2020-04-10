@@ -75,4 +75,8 @@ get.evaluation = function(state,problem){
 	return(cost)
 }
 
+# devuelve un estado aleatorio, permite que se pase pk el complete puede quitar pizzas
+get.random.state = function(problem){
+  return(runif(length(problem$pizzas))>0.5)
+}
 

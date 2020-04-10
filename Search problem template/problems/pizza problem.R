@@ -83,3 +83,12 @@ get.evaluation = function(state,problem){
 	return(cost)
 }
 
+# primero comprueba que el estado inicia no se pasa, porque sino no puede recucir la cantidad de pizzas
+get.random.state = function(problem){
+  st = runif(length(problem$pizzas))>0.5
+  
+  while(sum(problem$pizzas*st) > problem$target){
+    st = runif(length(problem$pizzas))>0.5
+  }
+  return(st)
+}

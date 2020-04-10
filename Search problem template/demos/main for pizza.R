@@ -1,11 +1,11 @@
 # =======================================================================
 # Names: Ander Eguiluz and Mikel Moreno
-# Group Number: ?
+# Group Number: A
 # Assignment: Assignment 3 - Pizza Problem
-# Date:
-# Time spent in the assignment:
-# Proportion of effort done by members of the group: 
-# Doubts and difficulties that arose during the realization:
+# Date: dunno bro
+# Time spent in the assignment: gods know
+# Proportion of effort done by members of the group: 8===D
+# Doubts and difficulties that arose during the realization: dunno why the ebaluation is negative.
 # =======================================================================
 # 1. Be sure to include, with this template, any necessary files
 #    for execution, including datasets (problem.R, methodXXX.R, ...)
@@ -20,7 +20,7 @@
 # (This is a general code, you must adapt it)
 # =======================================================================
 # Configuring the Environment
-rm(list=ls())
+{rm(list=ls())
 cat("\014")
 graphics.off()
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -46,6 +46,7 @@ source("../methods/Random Hill Climber.R") # no lo habiamos añadido
 source("../methods/Expand Node.R")
 source("../methods/Analyze Results.R")
 source("../methods/Plot Results.R")
+}
 # =======================================================================
 # Check the proper operation of implemented function here!
 
@@ -57,7 +58,7 @@ problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,2
 #res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
 res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
 #res2 = Greedy.Best.First.Search(problem, trace = T)
-res3 = Random.Hill.Climber(problem, trace = T, count.limit = 1000, count.print = 1) # no habiamos puesto RANDOM!
+res3 = Random.Hill.Climber(problem,numberofrepetitions = 10, trace = T, count.limit = 1000, count.print = 1) # no habiamos puesto RANDOM!
 analyze.results(list(res4, res3),problem)
 
 # Similar for complete state

@@ -22,7 +22,8 @@ Hill.Climber = function(problem,
                       nodes.frontier=numeric(),
                       depth.of.expanded=numeric(),
                       nodes.added.frontier=numeric())
-
+  
+  
   while (count<=count.limit){
     
     if (count%%count.print==0){
@@ -78,7 +79,8 @@ Hill.Climber = function(problem,
   result = list()
   result$report = report
   result$name = name.method
-  
+  print(name.method)
+  print(end.reason)
   # Show the obtained (or not) final solution
   if (end.reason == "Sollution"){
     print("Best solution found!!", quote = F)
