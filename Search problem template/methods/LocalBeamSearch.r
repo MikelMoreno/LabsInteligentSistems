@@ -1,3 +1,6 @@
+#We are going to expand the nodes keeping the best 'k' nodes as long as we don't get a goal
+
+
 Local.Beam.Search = function(problem,
                              count.limit=100, 
                              count.print = 100, 
@@ -11,7 +14,7 @@ Local.Beam.Search = function(problem,
   frontier = c()  
   successors = c()
   for (i in 1:k){    
-    state = get.random.state(problem)
+    state = get.random.state(problem) # This is the right way of creating a random state for every iteration
     node = list(parent=c(),
                 state= state,
                 actions=c(),
@@ -19,14 +22,14 @@ Local.Beam.Search = function(problem,
                 cost=0,
                 evaluation=get.evaluation(state,problem))
     
-   #frontier[[i]]= node # k random nodes in the frontier
-    frontier = c(list(node), frontier) #we have our list of all expanded nodes
+
+    frontier = c(list(node), frontier) #We have our list of all nodes
     
   }
   
-  frontier = frontier[order(sapply(frontier, function (x) x$evaluation))] #we order the frontier
+  frontier = frontier[order(sapply(frontier, function (x) x$evaluation))] #We order the frontier
   
-  bestNode = frontier[[1]]
+  bestNode = frontier[[1]] # Now the best node is bestNode
   
   count = 1
   end.reason = 0
@@ -36,7 +39,6 @@ Local.Beam.Search = function(problem,
                       nodes.added.frontier=numeric())
   
   
-  # while (count<=count.limit){ # o length(frontera)==0 //lo quitamos porq no añade ahora valor
   while (count<= count.limit){                                   
     
     for( i in 1:k){ # Take out nodes from frontier 
@@ -45,34 +47,24 @@ Local.Beam.Search = function(problem,
       
       print(i)
       
-      newnodes = expand.node(firstnode, actions.possible) #expand those nodes
-      successors = c(newnodes, successors) #we have our list of all expanded nodes, no esta insertando nada
+      newnodes = expand.node(firstnode, actions.possible) #Expand those nodes
+      successors = c(newnodes, successors) #We have our list of all expanded nodes
       print(length(newnodes))
-      # for(a in 1:length(newnodes)){ # insert node by node in a list of successors
-      #   node = newnodes[a]
-      #   successors = c(list(node), successors) #we have our list of all expanded nodes
-      # }
     }
-    successors = successors[order(sapply(successors,function (x) x$evaluation))] #we order the list of successors 
+    successors = successors[order(sapply(successors,function (x) x$evaluation))] #We order the list of successors 
     print(length(successors))
-    frontier = head(successors, n = k) # actualizamos la frontera con los k primeros (mejores) sucesores
-    # localBest = successors[[1]] #we have our localBest here
-    # 
-    # best = ifelse(best$evaluation > localBest$evaluation, localBest, best)                                           
-    # 
-    # for(e in k:length(frontier)){
-    #   frontier[[k+1]] = NULL # We keep the best successors nodes in the frontier
-    # }                                     
-    report = rbind(report,
-                   data.frame(iteration = count,
-                              nodes.frontier = length(frontier),
-                              depth.of.expanded = firstnode$depth,
-                              nodes.added.frontier = 1))
+    frontier = head(successors, n = k) # We update the frontier with the best k first nodes
     
+    report = rbind(report, # Generating the report and adding the information
+               data.frame(iteration = count,
+                          nodes.frontier = length(frontier),
+                          depth.of.expanded = firstnode$depth,
+                          nodes.added.frontier = 1))
+
     count = count+1
   }
   
-  # A PARTIR DE AQUÍ YA MANDA LOS RESULTADOS  
+ ## Now we deal with the report handling 
   firstnode = frontier[[1]]
   end.reason = "Sollution"
   
