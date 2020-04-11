@@ -1,4 +1,4 @@
-source("../methods/Hill Climber.R")
+
 
 Random.Hill.Climber = function(problem,
                                numberofrepetitions,
@@ -20,18 +20,13 @@ Random.Hill.Climber = function(problem,
   
   frontier=list(node)
   end.reason=0
-  BEST = node
-  hillNode = BEST
-  BEST$evaluation = 100000000 # numero elevado
-  # NO CONSEGUIMOS QUE COMPARE LA EVALUACIÓN DE HILLNODE (error de atomic vector)
-  # NECESARIO CONSEGUIR EVALUACIÓN DE SOLUCION DE HILL.CLIMBER PARA COMPARAR CON BEST
-  # UNA VEZ HECHO ESO, QUEDARSE CON ESA SOLUCION
+  BEST = 100000000 # We put a high number to compare with 
+
   
-  print("EVAL de BEST: ")
-  print(BEST$evaluation) # nos esta devolviendo 1e+08 --> 10 elevado a 8
-  print("EVAL de get.eval(hill...: ")
-  print(get.evaluation(hillNode$state, problem)) # no habiamos metido el $state !!!!
-  solGeneral = list()
+  print("EVAL of BEST: ")
+  print(BEST) 
+  hillNode = node
+  bestSolution = list() # future solution of solutions
   
   report = data.frame(iteration=numeric(),
                       nodes.frontier=numeric(),
@@ -41,43 +36,46 @@ Random.Hill.Climber = function(problem,
   for( i in 1:numberofrepetitions ){
     print("vuelta:")
     print(i)
-    problem$state.initial = get.random.state(problem)
-    solution = Hill.Climber(problem,count.limit = count.limit, count.print = count.print, trace = TRUE)
-    print("ha pasado hill climber")
-    print(solution)
-    hillNode = solution$state.final # no es nada
+    problem$state.initial = get.random.state(problem) # we assign a random state to the initial one 
+    solution = Hill.Climber(problem,count.limit = count.limit, count.print = count.print, trace = TRUE) # getting the hill solution
+    hillNode = get.evaluation(solution$state.final$state, problem) # getting the evaluation of that solution
+  
+    print("HILL NODE eval:")
     print(hillNode)
-    if (is.null(hillNode)) end.reason = " "
-    if(!is.null(hillNode)){
-      if (get.evaluation(hillNode$state,problem)< BEST$evaluation ){  #hillNode$evaluation es el que peta (hillNode$evaluation )
-        #BEST$evaluation = get.evaluation(hillNode$state, problem) # tenemos que meter el $state, sino la funcion no tira.
-        #solGeneral = solution
-        print("ha entrado en el IF")
+    print("HILL NODE \n")
+  
+    if(!is.null(hillNode)){ 
+      if (hillNode < BEST ){ # if eval of solution is better than the best one, keep the new one  
+        bestSolution = solution
         BEST = hillNode
         end.reason = "Sollution"
       } 
-      print("EVAL del mejor nodo hasta el momento: ")
-      print(BEST$evaluation)
+      print("EVAL of the best node until k: ")
+      print(BEST)
     } 
+    report = rbind(report, # Generating the report and adding the information
+                   data.frame(iteration = i,
+                              nodes.frontier = length(solution$state.final),
+                              depth.of.expanded = solution$state.final$depth,
+                              nodes.added.frontier = 1))
   }
   
   result = list()
   result$name = name.method
   
   # Show the obtained (or not) final solution
-  # no esta entrando aqui, entra al Hill Cliember normal
   if (end.reason == "Sollution"){
     print("Best solution found! :)", quote = F)
-    to.string(BEST$state)
+    to.string(bestSolution$state.final$state)
     print("Actions: ", quote = F)
-    print(BEST$actions, quote = F) # sale null
-    result$state.final = BEST$state
+    print(bestSolution$state.final$actions, quote = F)
+    result$state.final = bestSolution$state.final
   } else{
     print("Best solution found! :D", quote = F)
-    to.string(BEST$state)
+    to.string(bestSolution$state.final$state)
     print("Actions: ", quote = F)
-    print(BEST$actions, quote = F)
-    result$state.final = BEST$state # best no tiene STATE.FINAL  
+    print(bestSolution$state.final$actions, quote = F)
+    result$state.final = bestSolution$state.final 
   }
   
   plot.results(report, name.method,problem)

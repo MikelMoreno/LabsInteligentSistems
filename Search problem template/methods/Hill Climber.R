@@ -102,7 +102,7 @@ Hill.Climber = function(problem,
       print(firstnode$actions, quote = F)
       result$state.final = firstnode
     }
-    result$state.final = NA
+    result$state.final = firstnode
   }
   
   plot.results(report,name.method,problem)

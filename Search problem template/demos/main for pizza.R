@@ -2,10 +2,11 @@
 # Names: Ander Eguiluz and Mikel Moreno
 # Group Number: A
 # Assignment: Assignment 3 - Pizza Problem
-# Date: dunno bro
-# Time spent in the assignment: gods know
-# Proportion of effort done by members of the group: 8===D
-# Doubts and difficulties that arose during the realization: dunno why the ebaluation is negative.
+# Date: 11/4/20
+# Time spent in the assignment: 7-8h
+# Proportion of effort done by members of the group: 60%Mikel-40%Ander
+# Doubts and difficulties that arose during the realization: Our main problem was realising that we weren't
+# creating random states right
 # =======================================================================
 # 1. Be sure to include, with this template, any necessary files
 #    for execution, including datasets (problem.R, methodXXX.R, ...)
@@ -55,18 +56,20 @@ source("../methods/Plot Results.R")
 # =======================================================================
 # Solving of the problem (you have to adapt it)
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
-#res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
-res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
-#res2 = Greedy.Best.First.Search(problem, trace = T)
+res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
+res2 = Greedy.Best.First.Search(problem, trace = T)
 res3 = Random.Hill.Climber(problem,numberofrepetitions = 10, trace = T, count.limit = 1000, count.print = 1) # no habiamos puesto RANDOM!
-analyze.results(list(res4, res3),problem)
+res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 2, trace = FALSE)
+res5 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 10, trace = FALSE)
+analyze.results(list(res1, res2, res3, res4, res5),problem)
 
 # Similar for complete state
 source("../problems/pizza problem - complete.R")
 problem   = initialize.problem(target = 100, pizzas = c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,96))
-res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 3, trace = FALSE)
-res1 = Breadth.First.Search(problem, count.limit = 100, graph.search = T, trace = F)
-#res2 = Greedy.Best.First.Search(problem, trace = T)
-res3 = Hill.Climber(problem, trace = T, count.limit = 10)
-analyze.results(list(res4, res3),problem)
+res1 = Breadth.First.Search(problem, count.limit = 2000, graph.search = T, trace = F)
+res2 = Greedy.Best.First.Search(problem, trace = T)
+res3 = Random.Hill.Climber(problem,numberofrepetitions = 10, trace = T, count.limit = 1000, count.print = 1) # no habiamos puesto RANDOM!
+res4 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 2, trace = FALSE)
+res5 = Local.Beam.Search(problem,count.limit=100, count.print = 100, k= 10, trace = FALSE)
+analyze.results(list(res1, res2, res3, res4, res5),problem)
 #analyze.results(list(res3), problem)
