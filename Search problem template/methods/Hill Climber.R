@@ -79,24 +79,24 @@ Hill.Climber = function(problem,
   result = list()
   result$report = report
   result$name = name.method
-  print(name.method)
-  print(end.reason)
+  #print(name.method)
+  print(paste("end reason: ",end.reason))
   # Show the obtained (or not) final solution
   if (end.reason == "Sollution"){
-    print("Best solution found!!", quote = F)
+    print("Best local solution found!!", quote = F)
     to.string(firstnode$state)
     print("Actions: ", quote = F)
     print(firstnode$actions, quote = F)
     result$state.final = firstnode
   } else{
     if (end.reason == "Frontier"){
-      print("Best solution found!!", quote = F)
+      print("Best local solution found!!", quote = F)
       to.string(firstnode$state)
       print("Actions: ", quote = F)
       print(firstnode$actions, quote = F)
       result$state.final = firstnode
     } else{
-      print("Best solution found!!", quote = F)
+      print("Best local solution found!!", quote = F)
       to.string(firstnode$state)
       print("Actions: ", quote = F)
       print(firstnode$actions, quote = F)

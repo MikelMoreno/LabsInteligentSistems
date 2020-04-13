@@ -4,9 +4,8 @@
 # Assignment: Assignment 3 - Pizza Problem
 # Date: 11/4/20
 # Time spent in the assignment: 7-8h
-# Proportion of effort done by members of the group: 60%Mikel-40%Ander
-# Doubts and difficulties that arose during the realization: Our main problem was realising that we weren't
-# creating random states right
+# Proportion of effort done by members of the group: 50% Mikel-50% Ander
+# Doubts and difficulties that arose during the realization: Our main problem was realising that we weren't creating random states right
 # =======================================================================
 # 1. Be sure to include, with this template, any necessary files
 #    for execution, including datasets (problem.R, methodXXX.R, ...)
