@@ -36,6 +36,7 @@ Random.Hill.Climber = function(problem,
                       nodes.added.frontier=numeric())
   
   for( i in 1:numberofrepetitions ){ 
+    
     # we execute the hill climber 'numberofrepetition' times
     print(paste0("Hill climber executed time:",i), quote = F)
     problem$state.initial = get.random.state(problem) # we assign a random state to the initial one 
@@ -55,7 +56,7 @@ Random.Hill.Climber = function(problem,
       print(" ",quote = F)
       print("================================================================",quote = F)
     } 
-    #print(solution$state.final)
+    
     # Generating the report and adding the information
     report = rbind(report, 
                    data.frame(iteration = i,
@@ -67,6 +68,7 @@ Random.Hill.Climber = function(problem,
   #create the result that will be returned
   result = list()
   result$name = name.method
+  result$report = report # this will display the report when we analise it
   
   # Show the obtained (or not) final solution
   if (end.reason == "Sollution"){
