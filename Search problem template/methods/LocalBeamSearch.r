@@ -44,15 +44,11 @@ Local.Beam.Search = function(problem,
     for( i in 1:k){ # Take out nodes from frontier 
       firstnode = frontier[[1]]
       frontier[[1]] = NULL
-      
-      print(i)
-      
+      # print(i) #test for showing the program enters and exits the loop
       newnodes = expand.node(firstnode, actions.possible) #Expand those nodes
       successors = c(newnodes, successors) #We have our list of all expanded nodes
-      print(length(newnodes))
     }
     successors = successors[order(sapply(successors,function (x) x$evaluation))] #We order the list of successors 
-    print(length(successors))
     frontier = head(successors, n = k) # We update the frontier with the best k first nodes
     
     report = rbind(report, # Generating the report and adding the information

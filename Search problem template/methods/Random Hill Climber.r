@@ -10,7 +10,7 @@ Random.Hill.Climber = function(problem,
                                count.print = 100, 
                                trace = FALSE){
   
-  name.method = "Random.Hill Climber"
+  name.method = "Random Hill Climber"
   state.initial    = problem$state.initial
   state.final      = problem$state.final
   actions.possible = problem$actions.possible
@@ -25,8 +25,6 @@ Random.Hill.Climber = function(problem,
   frontier=list(node)
   end.reason=0 # the end reason is still not specified
   BEST = 100000000 # We put a high number to compare with
-  # print("EVAL of BEST: ")
-  # print(BEST) 
   hillNode = node 
   bestSolution = list() # future solution of solutions
   
