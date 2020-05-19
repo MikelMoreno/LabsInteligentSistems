@@ -65,8 +65,8 @@
 # VARIABLES we are using
 # =======================================================================
 i = 1                   #iterator
-vIssues = vector()      #Here we order the gains of the different items
-vGains  = vector()
+vIssues = vector()      #Here we order the Symptoms
+vGains  = vector()      #Here we order the gains of the different items
 vResults = vector()     #Here we are storing the different accuracies of every iteration
 
 # READING DATA 
