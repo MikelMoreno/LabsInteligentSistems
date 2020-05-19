@@ -72,11 +72,12 @@ library(caret)
 
     # set hypothesis and error formulas
     initial_set$h = w1*initial_set$x1 + w0*initial_set$x0
-    initial_set$e = initial_set$y - initial_set$h
+    initial_set$e = initial_set$y - initial_set$h # el error de lo que me saca mi funcion vs lo que realmente hay
 
     iterations = 250 # iterations at 2000 gives pretty similar result to lm() later below...
     alpha = 0.01
-
+    
+    #ajusto los pesos, los divido entre nrow para ajustarlo a la medida del w (puede que sea un porcentaje)
     for (i in 1:iterations) {
       w1 = w1 + alpha * sum(initial_set$e * initial_set$x1) / nrow(initial_set)
       w0 = w0 + alpha * sum(initial_set$e * initial_set$x0) / nrow(initial_set)
@@ -440,3 +441,5 @@ library(caret)
     # also a bit higher than in the manual process, but only marginally so (0.0035306 
     # manually vs 0.003943972 in lm()) so we can safely attribute this to the difference 
     # in data partitioning and not to just worse prediction capabilities.
+
+    
