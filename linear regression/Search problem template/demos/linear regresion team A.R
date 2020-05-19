@@ -1,17 +1,42 @@
+# =======================================================================
+# Names: Ander Eguiluz and Mikel Moreno
+# Group Number: A
+# Assignment: Assignment 4 - Linear Regression
+# Date: 18/5/20
+# Time spent in the assignment: 5-6h
+# Proportion of effort done by members of the group: 50% Mikel-50% Ander
+# Doubts and difficulties that arose during the realization: ???
+# =======================================================================
+# 1. Be sure to include, with this template, any necessary files
+#    for execution, including datasets (problem.R, methodXXX.R, ...)
+#    (submission of the entire template folder is recommended)
+# 2. If you use a function of a certain package, do not forget to include the
+#    corresponding call to the "library ()" function
+# 3. Do not forget to comment on the code, especially those non-trivial commands
+#    (remember that part of the rating depends on the cleaning of the code)
+# 4. It is strongly recommended to test any implemented function in order to 
+#    check for its proper operation
+# =======================================================================
+# (This is a general code, you must adapt it)
+# =======================================================================
+# Configuring the Environment
 
-# Setup the environment
-rm(list=ls())
+{rm(list=ls())
 cat("\014")
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd()
 dir()
 
+# LIBRARIES (add any needed library here)
+
 library(ggplot2)
 library(caret)
 
+}
 
 
-# Read csv 
+# Read data from csv
+#====================== 
 csv_dataframe = read.csv(file.path("../data/2020 - 2019 world happiness.csv"))
 
 # structure of the data relation we are going to use in the first problem (relation between GPD per capita and the obtained score)
@@ -21,7 +46,7 @@ ggplot(csv_dataframe, aes(x = GDP.per.capita, y = Score)) + geom_point()
 # ========================================================================================================
 # ========================================================================================================
 
-# Use linear regression to get the "Score" given only one factor
+# Given one factor we are going to get the linear regression to obtain the "Score"
 
 #-------------------------------------1.not using lm()-----------------------------------------------------
 
