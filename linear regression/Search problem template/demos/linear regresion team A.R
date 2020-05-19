@@ -93,8 +93,8 @@ ggplot(first_set) +
   geom_point(aes(x = x1, y = y, col = "Data")) + 
   geom_point(aes(x = dataset_of_model$x1, y = dataset_of_model$h, col = "Model hypothesis")) + 
   geom_line(aes(x = dataset_of_model$x1, y = dataset_of_model$h, col = "Model hypothesis")) + 
-  labs(caption=paste0("model_w1=", round(coef(model)[[2]], digits=3),
-                      "  model_w0=", round(coef(model)[[1]], digits=3),
+  labs(caption=paste0("w1=", round(coef(model)[[2]], digits=3),
+                      "  w0=", round(coef(model)[[1]], digits=3),
                       "  Nº iterations= ", i
                       
   ))
@@ -106,10 +106,10 @@ ggplot(first_set) +
   geom_line(aes(x = x1, y = h, col = "Manual hypothesis")) + 
   geom_point(aes(x = dataset_of_model$x1, y = dataset_of_model$h, col = "Model hypothesis")) + 
   geom_line(aes(x = dataset_of_model$x1, y = dataset_of_model$h, col = "Model hypothesis")) + 
-  labs(caption=paste0("model_w1=", round(coef(model)[[2]], digits=3),
-                      "  model_w0=", round(coef(model)[[1]], digits=3),
-                      "  w1=", round(w1, digits=3),
-                      "  w0=", round(w0, digits=3),
+  labs(caption=paste0("LM_W1=", round(coef(model)[[2]], digits=3),
+                      "  LM_W0=", round(coef(model)[[1]], digits=3),
+                      "  Handmade_w1=", round(w1, digits=3),
+                      "  Handmade_w0=", round(w0, digits=3),
                       "  Nº iterations= ", i
                       
   ))
@@ -125,7 +125,7 @@ ggplot(first_set) +
 
 
 # value for random data-partitioning
-number = 4321
+number = 007
 
 # vector (like an array) for MAE comparisons
 ObtainedMAEs = vector()
@@ -134,7 +134,7 @@ for (i in 1:10) {
   
   # create partitions
   set.seed(number)
-  number = number + 5
+  number = number + 7
   
   #select 80% of the data for training
   training_data_in_indexes = createDataPartition(
@@ -175,13 +175,13 @@ for (i in 1:10) {
   )
   
   # initialize weights
-  w0 = 0.5
-  w1 = 0.5
-  w2 = 0.5
-  w3 = 0.5
-  w4 = 0.5
-  w5 = 0.5
-  w6 = 0.5
+  w0 = 1
+  w1 = 1
+  w2 = 1
+  w3 = 1
+  w4 = 1
+  w5 = 1
+  w6 = 1
   
   # set hypothesis and error
   training_dataframe_parsed$h = 
@@ -279,7 +279,7 @@ mean(ObtainedMAEs)
 #--------------------------------------------lm() part ----------------------------------------------------------
 
 # value for random data-partitioning
-number = 5678
+number = 112
 
 # vector (like an array) for MAE comparisons
 ObtainedMAEs_lm = vector()
@@ -288,7 +288,7 @@ for (i in 1:10) {
   
   # create partitions
   set.seed(number)
-  number = number + 5
+  number = number + 7
   #select 80% of the data
   training_data_in_indexes = createDataPartition(
     csv_dataframe$Overall.rank,
