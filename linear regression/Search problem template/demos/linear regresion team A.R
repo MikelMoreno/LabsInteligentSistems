@@ -375,21 +375,27 @@ for (i in 1:10) {
   
   testing_dataframe_parsed$e = testing_dataframe_parsed$y - testing_dataframe_parsed$h
   
+  
   # print MAE
   print(paste0(" Comparing calculated weights against real test value"))
   print(paste0(" MAE = ", mean(abs(testing_dataframe_parsed$e))))
   
+
   # print R-squared values
   print(paste0(" Multiple R-squared = ", summary(model)$r.squared))
   print(paste0(" Adjusted R-squared = ", summary(model)$adj.r.squared))
-  
+
   ObtainedMAEs_lm = append(ObtainedMAEs_lm, mean(abs(testing_dataframe_parsed$e)))
   
+ 
   invisible(readline(prompt = "Press a key to start next iteration"))
-  
+
 }
 
 # average and variability in MAE
 var(ObtainedMAEs_lm)
 mean(ObtainedMAEs_lm)
+
+#print the summary of the last iteration
+summary(model)
 
